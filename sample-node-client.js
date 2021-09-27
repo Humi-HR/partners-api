@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Set up the JsonApi client.
-// Your token should be available in the environment
+// Your token must be available in the environment
 const jsonApi = new JsonApi({
   apiUrl: process.env.HUMI_PARTNERS_API_URL,
   bearer: process.env.HUMI_PARTNERS_API_TOKEN,
@@ -35,18 +35,18 @@ jsonApi.define("employee", {
 const indexResponse = jsonApi.findAll("employee", { page: { number: 1 } });
 indexResponse
   .then((response) => {
-    // handle response
+    console.log(response);
   })
   .catch((err) => {
-    // handle error
+    console.log(err);
   });
 
 // Sample show request.
 const showResponse = jsonApi.find("employee", 49);
 showResponse
   .then((response) => {
-    // handle response
+    console.log(response);
   })
   .catch((err) => {
-    // handle error
+    console.log(err);
   });
