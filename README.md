@@ -222,7 +222,7 @@ The Partners API Domain is `partners.humi.ca`. Only `https` is supported.
 ## <a name="examples"></a>Examples
 ### curl
 ```
-curl -H "Authorization: Bearer valid-token-here?page%5Bsize%5D=5&page%5Bnumber%5D=2" https://partners.humi.ca/v1/employees
+curl -H "Authorization: Bearer valid-token-here" https://partners.humi.ca/v1/employees?page%5Bsize%5D=5&page%5Bnumber%5D=2
 ```
 
 ### node
