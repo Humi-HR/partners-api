@@ -2,8 +2,6 @@
 > An API for accessing Humi employee data in third-party applications 
 <hr>
 
-Our API capabilities are being actively developed at Humi. Our current focus is to integrate with Time and Attendance systems, such as Voila and Ameego. Once this is complete, we aim to provide a basic integration with other T&A systems, along with exposing additional endpoints and/or webhooks via our Open API, or third-party tools like Zapier.
-
 **Our Open API is in a closed beta phase.** Currently, we have an Employee endpoint available. We are more than happy to provide a token to explore current functionality. However, as this is still actively in development -- there may be unexpected changes, downtime, or other complications. 
 
 **Use at your own risk.** If you have additional questions, desired use cases, or comments, our product team is interested to speak to you. Please contact api@humi.ca with any questions.
