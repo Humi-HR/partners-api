@@ -11,57 +11,63 @@ Get approved time off requests of a company.
 ## Requests
 Requests must follow the [JSON:API](https://jsonapi.org/) spec.
 
+The `dateRange[start]` and `dateRange[end]` parameters are required. 
+
+The results will onlyinclude time off requests where the start date(`start_at`), end date(`end_at`), or dates between
+the start and end dates of the time off request overlap with the provided date range(`dateRange[start]` and `dateRange[end]`).
+
 ### Request Query Parameters
 
-| Name         | Type     | Data Type         | Default | Description                                                         |
-|--------------|----------|-------------------|---------|---------------------------------------------------------------------|
-| date[start]  | required | date (YYYY-MM-DD) | N/A     |                                                                     |
-| date[end]    | required | date (YYYY-MM-DD) | N/A     |                                                                     |
-| page[size]   | optional | int               | 25      | Requested Page size. There is a **maximum of 25** results per page. |
-| page[number] | optional | int               | 1       | Requested Page number.                                              |
+| Name             | Type         | Data Type | Default | Description                                                             |
+|------------------|--------------|-----------|---------|-------------------------------------------------------------------------|
+| dateRange[start] | **required** | date      | N/A     | Start date to filter the time off requests returned (Format YYYY-MM-DD) |
+| dateRange[end]   | **required** | date      | N/A     | End date to filter the time off requests returned (Format YYYY-MM-DD)   |
+| page[size]       | optional     | int       | 25      | Requested Page size. There is a **maximum of 25** results per page.     |
+| page[number]     | optional     | int       | 1       | Requested Page number.                                                  |
 
 ### Example Request
 
 #### curl
 ```
-curl -H "Authorization: Bearer valid-token-here" https://partners.humi.ca/v1/timeoff?page%5Bsize%5D=5&page%5Bnumber%5D=2
+curl -G \
+     -H "Authorization: Bearer valid-token-here" \
+     --data-urlencode "dateRange[start]=2022-01-01" \
+     --data-urlencode "dateRange[end]=2022-02-28" \
+     --data-urlencode "page[size]=5" \
+     --data-urlencode "page[number]=1" \
+     https://partners.humi.ca/v1/timeoff
 ```
 
 
 ## Responses
 Responses follow the [JSON:API](https://jsonapi.org/) spec.
 
-Responses are ordered by the `created_at` field, ascending. (ie. 1, 2, 3...)
+Responses are ordered by the `updated_at` field, descending. (ie. most recently updated first)
 
 #### Data
-The `data` attribute is an `array` of `Employee` objects.
+The `data` attribute is an `array` of `timeOffRequest` objects.
 
-#### Employee
-An `Employee` has an `id` which is a unique identifier.
+#### TimeOffRequest
+A `timeOffRequest` has an `id` which is a unique identifier.
 
-An `Employee` has `attributes` which contain the information about the employee.
+A `timeOffRequest` has `attributes` which contain the information about the time off request.
 
-Humi allows users to delete employees. **Deleted employees will not appear in the results.**
+**Only approved time off requests will appear in the results.**
 
-#### Employee Attributes
-| Attribute        | Data Type      | Description                                                                                      |
-|------------------|----------------|--------------------------------------------------------------------------------------------------|
-| id               | uuid (v4)      | a unique identifier for this employee                                                            |
-| first_name       | string         | name the employee goes by                                                                        |
-| last_name        | string         | name the employee goes by                                                                        |
-| legal_first_name | string         | name on government issued identification                                                         |
-| legal_last_name  | string         | name on government issued identification                                                         |
-| email            | string         | primary email used in Humi                                                                       |
-| work_phone       | string or null | work phone                                                                                       |
-| mobile_phone     | string or null | mobile phone                                                                                     |
-| department       | string or null | name of department (not required)                                                                |
-| position         | string or null | name of position (not required)                                                                  |
-| office           | string or null | address of office (not required)                                                                 |
-| employment_type  | string         | one of: full-time, seasonal, part-time, contractor, intern, consultant, other, volunteer, casual |
-| start_date       | date           | start of employment                                                                              |
-| end_date         | date or null   | end of employment                                                                                |
-| created_at       | datetime       | creation of employee entity                                                                      |
-| updated_at       | datetime       | last time employee or employee's position, department, office was updated                        |
+#### TimeOffRequest Attributes
+| Attribute          | Data Type      | Description                                                          |
+|--------------------|----------------|----------------------------------------------------------------------|
+| id                 | uuid (v4)      | a unique identifier for this time off request                        |
+| employee_id        | uuid (v4)      | a unique identifier for the employee the time off request belongs to |
+| type               | string         | the type of time off request (ie Personal Day, Sick Day etc.)        |
+| start_at           | date           | the date the time off request starts                                 |
+| end_at             | date           | the date the time off request ends                                   |
+| status             | string         | current status of the time off request (pending, approved or denied) |
+| description        | string or null | description about the time off request (if provided)                 |
+| total_amount_days  | float          | total amount of time off requested in days                           |
+| total_amount_hours | float          | total amount of time off requested in hours                          |
+| created_at         | datetime       | creation of the time off request                                     |
+| updated_at         | datetime       | last time the time off request was updated                           |
 
 #### Meta
 The `meta` attribute contains information about the response itself, including pagination data. Responses are **paginated**,
@@ -71,119 +77,79 @@ so you may need to make several requests to get the full list. Pages have a maxi
 
 **Code** : `200 OK`
 
-Given a request to `partners.humi.ca/v1/employees` with a [valid token](../../README.md#humi-partners-api-token), with pagination query params `?page[size]=5&page[number]=2`, we can expect a response similar to the one below.
+Given a request to `partners.humi.ca/v1/timeoff/:employeeId` with a [valid token](../../README.md#humi-partners-api-token),
+a valid `Employee ID`, and appropriate `dateRange[start]` and `dateRange[end]` query parameters we can expect a response
+similar to the one below.
 
 ```json
 {
   "data": [
     {
-      "id": "ecf35d71-4b3b-4cb1-9349-5817f48e4769",
-      "type": "employees",
+      "id": "630d09c7-b77c-40f3-8540-0860474c7173",
+      "type": "timeOffRequest",
       "attributes": {
-        "id": "ecf35d71-4b3b-4cb1-9349-5817f48e4769",
-        "first_name": "Piers",
-        "last_name": "Walsh",
-        "legal_first_name": "Piers",
-        "legal_last_name": "Walsh",
-        "email": "piers.walsh@jimsfinegoods.ca",
-        "work_phone": null,
-        "mobile_phone": "613-555-0196",
-        "department": "Sales",
-        "position": "Sales Manager",
-        "employment_type": "full-time",
-        "office": "123 Real Street, Toronto ON, M5P 1L9, Canada",
-        "start_date": "2018-04-18",
-        "end_date": null,
-        "created_at": "2021-09-27T14:00:41+00:00",
-        "updated_at": "2021-09-27T14:00:43+00:00"
+        "id": "630d09c7-b77c-40f3-8540-0860474c7173",
+        "employee_id": "2dad89f2-62ee-4d7c-8f8d-706ce5ed30d1",
+        "type": "Personal Day",
+        "start_at": "2022-02-16",
+        "end_at": "2022-02-28",
+        "status": "approved",
+        "description": null,
+        "total_amount_days": 8,
+        "total_amount_hours": 64,
+        "created_at": "2022-01-17T14:19:00.000000Z",
+        "updated_at": "2022-01-26T14:54:03.000000Z"
       }
     },
     {
-      "id": "4ae4c082-7a54-486b-8517-37518d60f90d",
-      "type": "employees",
+      "id": "444d338f-86f9-49be-9dcc-077dc6b0a03a",
+      "type": "timeOffRequest",
       "attributes": {
-        "id": "4ae4c082-7a54-486b-8517-37518d60f90d",
-        "first_name": "Ruth",
-        "last_name": "Walsh",
-        "legal_first_name": "Ruth",
-        "legal_last_name": "Walsh",
-        "email": "ruth.walsh@jimsfinegoods.ca",
-        "work_phone": null,
-        "mobile_phone": "613-555-0241",
-        "department": "Sales",
-        "position": "Sales Associate",
-        "employment_type": "full-time",
-        "office": "123 Halli Street, Halifax NS, B3H 0A6, Canada",
-        "start_date": "2020-12-21",
-        "end_date": null,
-        "created_at": "2021-09-27T14:00:41+00:00",
-        "updated_at": "2021-09-27T14:00:43+00:00"
+        "id": "444d338f-86f9-49be-9dcc-077dc6b0a03a",
+        "employee_id": "bf198b95-e932-4967-ba9e-abfc03738753",
+        "type": "Personal Day",
+        "start_at": "2022-02-07",
+        "end_at": "2022-02-08",
+        "status": "approved",
+        "description": null,
+        "total_amount_days": 2,
+        "total_amount_hours": 16,
+        "created_at": "2022-01-13T16:22:28.000000Z",
+        "updated_at": "2022-01-17T19:12:02.000000Z"
       }
     },
     {
-      "id": "226d42d8-a6ef-4724-91a6-fd066027cda0",
-      "type": "employees",
+      "id": "95c26144-8e41-49c6-bd55-16773950f7f6",
+      "type": "timeOffRequest",
       "attributes": {
-        "id": "226d42d8-a6ef-4724-91a6-fd066027cda0",
-        "first_name": "Simon",
-        "last_name": "Lyman",
-        "legal_first_name": "Simon",
-        "legal_last_name": "Lyman",
-        "email": "simon.lyman@jimsfinegoods.ca",
-        "work_phone": null,
-        "mobile_phone": "613-555-0235",
-        "department": "IT",
-        "position": "Technician",
-        "employment_type": "full-time",
-        "office": "123 Real Street, Toronto ON, M5P 1L9, Canada",
-        "start_date": "2021-09-21",
-        "end_date": null,
-        "created_at": "2021-09-27T14:00:41+00:00",
-        "updated_at": "2021-09-27T14:00:43+00:00"
+        "id": "95c26144-8e41-49c6-bd55-16773950f7f6",
+        "employee_id": "2dad89f2-62ee-4d7c-8f8d-706ce5ed30d1",
+        "type": "Sick Day",
+        "start_at": "2022-01-17",
+        "end_at": "2022-01-19",
+        "status": "approved",
+        "description": null,
+        "total_amount_days": 3,
+        "total_amount_hours": 24,
+        "created_at": "2022-01-13T14:20:24.000000Z",
+        "updated_at": "2022-01-17T19:12:02.000000Z"
       }
     },
     {
-      "id": "fef40c6b-7d48-46d1-8517-a1d8638cc935",
-      "type": "employees",
+      "id": "6c92339b-f82a-446e-aa88-d82cd227aef6",
+      "type": "timeOffRequest",
       "attributes": {
-        "id": "fef40c6b-7d48-46d1-8517-a1d8638cc935",
-        "first_name": "Leonard",
-        "last_name": "Terry",
-        "legal_first_name": "Leonard",
-        "legal_last_name": "Terry",
-        "email": "leonard.terry@jimsfinegoods.ca",
-        "work_phone": null,
-        "mobile_phone": "613-555-0273",
-        "department": "IT",
-        "position": "Developer",
-        "employment_type": "full-time",
-        "office": "123 Real Street, Toronto ON, M5P 1L9, Canada",
-        "start_date": "2021-01-13",
-        "end_date": null,
-        "created_at": "2021-09-27T14:00:40+00:00",
-        "updated_at": "2021-09-27T14:00:43+00:00"
-      }
-    },
-    {
-      "id": "0f066049-0de0-4b0b-83d7-6ddcaaafc767",
-      "type": "employees",
-      "attributes": {
-        "id": "0f066049-0de0-4b0b-83d7-6ddcaaafc767",
-        "first_name": "Maria",
-        "last_name": "Ince",
-        "legal_first_name": "Maria",
-        "legal_last_name": "Ince",
-        "email": "maria.ince@jimsfinegoods.ca",
-        "work_phone": null,
-        "mobile_phone": "613-555-0224",
-        "department": "IT",
-        "position": "Developer",
-        "employment_type": "full-time",
-        "office": "123 Real Street, Toronto ON, M5P 1L9, Canada",
-        "start_date": "2021-02-18",
-        "end_date": null,
-        "created_at": "2021-09-27T14:00:40+00:00",
-        "updated_at": "2021-09-27T14:00:43+00:00"
+        "id": "6c92339b-f82a-446e-aa88-d82cd227aef6",
+        "employee_id": "bf198b95-e932-4967-ba9e-abfc03738753",
+        "type": "Personal Day",
+        "start_at": "2022-01-26",
+        "end_at": "2022-01-27",
+        "status": "approved",
+        "description": null,
+        "total_amount_days": 2,
+        "total_amount_hours": 16,
+        "created_at": "2022-01-13T14:19:10.000000Z",
+        "updated_at": "2022-01-17T19:12:02.000000Z"
       }
     }
   ],
@@ -192,11 +158,11 @@ Given a request to `partners.humi.ca/v1/employees` with a [valid token](../../RE
     "meta": "Humi HR API"
   },
   "meta": {
-    "copyright": "© 2021 Humi Soft",
+    "copyright": "© 2022 Humi Soft",
     "pagination": {
-      "per_page": 5,
-      "page": 2,
-      "total": 31
+      "per_page": 25,
+      "page": 1,
+      "total": 4
     }
   }
 }

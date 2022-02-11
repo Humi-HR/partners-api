@@ -22,7 +22,11 @@ Requests must follow the [JSON:API](https://jsonapi.org/) spec.
 
 #### curl
 ```
-curl -H "Authorization: Bearer valid-token-here" https://partners.humi.ca/v1/employees?page%5Bsize%5D=5&page%5Bnumber%5D=2
+curl -G \
+     -H "Authorization: Bearer valid-token-here" \
+     --data-urlencode "page[size]=5" \
+     --data-urlencode "page[number]=2" \
+     https://partners.humi.ca/v1/employees
 ```
 
 
