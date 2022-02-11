@@ -60,7 +60,7 @@ Humi allows users to delete employees. **Deleted employees will not appear in th
 
 **Code** : `200 OK`
 
-Given a request to `partners.humi.ca/v1/employees/:employeeId` with a [valid token](../../README.md#humi-partners-api-token), and a valid `Employee ID`, we can expect a response similar to the one below.
+Given a request to `partners.humi.ca/v1/employees/:employeeId` with a [valid token](../../../README.md#humi-partners-api-token), and a valid `Employee ID`, we can expect a response similar to the one below.
 
 ```json
 {

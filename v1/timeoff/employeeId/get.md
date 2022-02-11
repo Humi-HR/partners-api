@@ -76,7 +76,7 @@ so you may need to make several requests to get the full list. Pages have a maxi
 
 **Code** : `200 OK`
 
-Given a request to `partners.humi.ca/v1/timeoff/:employeeId` with a [valid token](../../README.md#humi-partners-api-token),
+Given a request to `partners.humi.ca/v1/timeoff/:employeeId` with a [valid token](../../../README.md#humi-partners-api-token),
 a valid `Employee ID`, and appropriate `dateRange[start]` and `dateRange[end]` query parameters we can expect a response
 similar to the one below.
 
