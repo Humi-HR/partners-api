@@ -1,4 +1,4 @@
-# Employee List
+# Employee Index
 
 Get the details of all employees of a company.
 

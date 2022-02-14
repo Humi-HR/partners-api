@@ -1,4 +1,4 @@
-# TimeOff List
+# Time Off Index
 
 Get approved time off requests of a company.
 
@@ -13,8 +13,21 @@ Requests must follow the [JSON:API](https://jsonapi.org/) spec.
 
 The `dateRange[start]` and `dateRange[end]` parameters are required. 
 
-The results will onlyinclude time off requests where the start date(`start_at`), end date(`end_at`), or dates between
+The results will only include time off requests where the start date(`start_at`), end date(`end_at`), or dates between
 the start and end dates of the time off request overlap with the provided date range(`dateRange[start]` and `dateRange[end]`).
+
+### Date Range Examples 
+
+Given a `dateRange[start]` of **2022-01-01** and a `dateRange[end]` of **2022-01-31** and time off requests with the following `start_at` and `end_at` values: 
+
+| start_at   | end_at     | Included | Reason                                                                                     |
+|------------|------------|----------|--------------------------------------------------------------------------------------------|
+| 2022-01-02 | 2022-01-04 | Yes      | Both the start and end dates of the time off request are within the given date range.      |
+| 2022-01-30 | 2022-02-03 | Yes      | The start date of the time off request is within the given date range.                     |
+| 2021-12-24 | 2022-01-02 | Yes      | The end date of the time off request is within the given date range.                       |
+| 2021-12-01 | 2022-03-01 | Yes      | The dates between the start and end of the time off request overlap with given date range. |
+| 2021-12-01 | 2021-12-31 | No       | Both the start and end dates are before the given date range and do not overlap.           |
+| 2022-02-01 | 2021-02-10 | No       | Both the start and end dates are after the given date range and do not overlap.            |
 
 ### Request Query Parameters
 

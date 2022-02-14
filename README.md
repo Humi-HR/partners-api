@@ -50,15 +50,15 @@ The Partners API Domain is `partners.humi.ca`. Only `https` is supported.
 
 Endpoints for retrieving Employee information.
 
-* [Employee List](v1/employees/get.md) : `GET /v1/employees`
+* [Employee Index](v1/employees/get.md) : `GET /v1/employees`
 * [Employee Show](v1/employees/employeeId/get.md) : `GET /v1/employees/:employeeId`
 
 ### Time Off
 
 Endpoints for retrieving Time Off information.
 
-* [TimeOff List](v1/timeoff/get.md) : `GET /v1/timeoff`
-* [TimeOff Show](v1/timeoff/employeeId/get.md) : `GET /v1/timeoff/:employeeId`
+* [Time Off Index](v1/timeoff/get.md) : `GET /v1/timeoff`
+* [Time Off Show](v1/timeoff/employeeId/get.md) : `GET /v1/timeoff/:employeeId`
 
 ------------------------------------------------------------------------------------------
 
