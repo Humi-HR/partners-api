@@ -67,10 +67,10 @@ Endpoints for retrieving Time Off information.
 
 Employee events that trigger webhooks.
 
-* [EmployeeCreated](v1/webhooks/employee/created.md) : `EmployeeCreated Event`
-* [EmployeeUpdated](v1/webhooks/employee/updated.md) : `EmployeeUpdated Event`
-* [EmployeeTerminated](v1/webhooks/employee/terminated.md) : `EmployeeTerminated Event`
-* [EmployeeDeleted](v1/webhooks/employee/deleted.md) : `EmployeeDeleted Event`
+* [EmployeeCreated](v1/webhooks/employees/created.md) : `EmployeeCreated Event`
+* [EmployeeUpdated](v1/webhooks/employees/updated.md) : `EmployeeUpdated Event`
+* [EmployeeTerminated](v1/webhooks/employees/terminated.md) : `EmployeeTerminated Event`
+* [EmployeeDeleted](v1/webhooks/employees/deleted.md) : `EmployeeDeleted Event`
 
 ## <a name="examples"></a>Examples
 ### curl
