@@ -1,6 +1,6 @@
 # Employee Created Webhook
 
-The EmployeeCreated webhook is triggered anytime a new employee is created in the system.
+The Employee Created webhook is triggered anytime a new employee is created in the system.
 
 **Method** : `POST`
 
