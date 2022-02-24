@@ -13,7 +13,8 @@
 * [Requests](#requests)
 * [Examples](#examples)
 * [Domain](#domain)
-* [Available Endpoints](#available-endpoints)
+* [Endpoints](#endpoints)
+* [Webhooks](#webhooks)
 * [Humi Partners API Token](#humi-partners-api-token)
 
 ## <a name="introduction"></a>Introduction
@@ -44,7 +45,7 @@ Responses follow the [JSON:API](https://jsonapi.org/) spec.
 
 The Partners API Domain is `partners.humi.ca`. Only `https` is supported.
 
-## <a name="available-endpoints"></a>Available Endpoints
+## <a name="endpoints"></a>Endpoints
 
 ### Employee
 
@@ -59,6 +60,10 @@ Endpoints for retrieving Time Off information.
 
 * [Time Off Index](v1/timeoff/get.md) : `GET /v1/timeoff`
 * [Time Off Show](v1/timeoff/employeeId/get.md) : `GET /v1/timeoff/:employeeId`
+
+## <a name="webhooks"></a>Webhooks
+
+### Employee
 
 ------------------------------------------------------------------------------------------
 
