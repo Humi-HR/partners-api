@@ -2,12 +2,7 @@
 
 **Method** : `POST`
 
-## Payload
-
-#### Employee
-An `Employee` has an `id` which is a unique identifier.
-
-### JSON
+### Payload
 
 ```json
 {
