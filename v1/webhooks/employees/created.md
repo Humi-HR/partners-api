@@ -7,9 +7,9 @@
 ```json
 {
 "account":{
-    "email":"kevin.langlois+ameegopoc@humi.ca",
-    "first_name":"Kevin1",
-    "last_name":"Langlois1",
+    "email":"email@company.ca",
+    "first_name":"John",
+    "last_name":"Smith",
     "roles":{
         "1677":"Admin",
         "1679":"Employee"
@@ -17,10 +17,10 @@
 },
 "employee":{
     "id":"49b29733-6465-4479-a180-12774cf934bf",
-    "first_name":"Kevin",
-    "last_name":"Langlois",
-    "work_phone":null,
-    "mobile_phone":null,
+    "first_name":"John",
+    "last_name":"Smith",
+    "work_phone":"909-111-1111",
+    "mobile_phone":"909-111-1111",
     "status":"active",
     "start_date":"2011-02-09",
     "end_date":null,
@@ -29,13 +29,13 @@
     "created_at":"2022-01-12T16:32:55.000000Z"
 },
 "job":{
-    "department":"N/A",
-    "position":"N/A",
-    "office":"N/A",
+    "department":"Staff",
+    "position":"Employee",
+    "office":"123 Fake Street",
     "employment_type":"full-time"
 },
 "company":{
-    "name":"Ameego Integration POC"
+    "name":"My Company"
 },
 "timestamp":1642013868
 }
