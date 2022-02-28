@@ -1,4 +1,12 @@
-json```
+# Company Created Webhook
+
+The Company Created webhook is triggered upon creation of a new company in the system.
+
+**Method** : `POST`
+
+### Payload
+
+```json
 {
   "account": {
     "email": "employee22@humi.ca",
