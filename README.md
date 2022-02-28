@@ -72,6 +72,13 @@ Employee events that trigger webhooks.
 * [EmployeeTerminated](v1/webhooks/employees/terminated.md) : `EmployeeTerminated Event`
 * [EmployeeDeleted](v1/webhooks/employees/deleted.md) : `EmployeeDeleted Event`
 
+### Company
+
+Company events that trigger webhooks.
+
+* [CompanyCreated](v1/webhooks/companies/created.md) : `CompanyCreated Event`
+* [CompanyUpdated](v1/webhooks/companies/updated.md) : `CompanyUpdated Event`
+
 ## <a name="examples"></a>Examples
 ### curl
 ```
