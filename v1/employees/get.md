@@ -78,7 +78,7 @@ so you may need to make several requests to get the full list. Pages have a maxi
 The `included` attribute contains records that are related to the `Employee`. They are available if the request has the `include` query parameter set.
 The value for this query parameter is a comma-separated list, which may contain any combination of the following:
 
-- `salaries`: To include a list salary details for each employee.
+- `salaries`: To include a list of salary details for each employee.
 
 #### Salaries
 

@@ -34,7 +34,7 @@ A `Time Worked` entry contains the following information
 | overtime_hours | required | decimal formatted string | The number of overtime hours for this `Time Worked` entry                   |
 
 When the `id` is not included in the request, the entry is recorded as a new record. The `id` will be set in the request and can be
-read out from the response. If the `id` is set and exists for `employee_id` then the record will have it's contents updated.
+read out from the response. If the `id` is set and exists for `employee_id` then the record will have its contents updated.
 
 ### Example Request
 
@@ -69,7 +69,7 @@ When `Time Worked` entries are recorded, the `amount` is calculated out-of-band 
 
 ### Success Response
 
-**Code:**: `202 Accepted`
+**Code**: `202 Accepted`
 
 Given the example request above, we can expect the following response:
 
