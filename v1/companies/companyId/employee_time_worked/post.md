@@ -2,7 +2,7 @@
 
 Create or update time worked data for an employee
 
-**URL**: `/v1/payroll/companies/1/employee_time_worked`
+**URL**: `/v1/payroll/employee_time_worked`
 
 **Method**: `POST`
 
@@ -40,7 +40,7 @@ read out from the response. If the `id` is set and exists for `employee_id` then
 
 #### curl
 ```
-curl --location --request POST 'https://partners.humi.ca/v1/payroll/companies/1/employee_time_worked
+curl --location --request POST 'https://partners.humi.ca/v1/payroll/employee_time_worked
      -H "Authorization: Bearer valid-token-here"
      --data-raw '{
       "employee_id": "ecf35d71-4b3b-4cb1-9349-5817f48e4769",
