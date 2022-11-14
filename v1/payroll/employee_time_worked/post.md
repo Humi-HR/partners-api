@@ -81,6 +81,7 @@ a shift with the follow attributes:
   entry for this item is only valid if it contains the `hours` attribute.
 - A **Controlled Tips** additional income exists with ID `a0a50ab1-963b-442d-8268-aa32400def89`. An additional income
   entry for this item is only valid if it contains the `amount` attribute.
+- A **Holiday Pay** additional income exists with ID `8414f7ea-db9f-43e7-8cca-6c54eb738587`.
 
 
 #### curl
@@ -112,6 +113,7 @@ curl --location --request POST 'https://partners.humi.ca/v1/payroll/employee_tim
       ],
       "inferred_additional_incomes": [
         {
+          "id": "8414f7ea-db9f-43e7-8cca-6c54eb738587",
           "start_time": "2022-02-02 00:00:00 -04:00",
           "end_time": "2022-02-02 23:59:59 -04:00",
           "amount": "150.00"
