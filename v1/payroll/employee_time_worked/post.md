@@ -15,12 +15,12 @@ may be included for the employee.
 
 ### Request body
 
-| Name                        | Type     | Data Type                                     | Description                                                                     |
-|-----------------------------|----------|-----------------------------------------------|---------------------------------------------------------------------------------|
-| employee_id                 | required | uuid (v4)                                     | The unique identifier for the employee                                          |
-| time_worked                 | required | array of `Time Worked` entries                | An array that contains at least one `Time Worked` entry                         |
-| reset                       | optional | boolean                                       | When set to true will destroy all previous time worked entries on open payrolls |
-| inferred_additional_incomes | optional | array of `Inferred Additional Income` entries | An array that contains zero or more `Inferred Additional Income` entries        |
+| Name                        | Type                     | Data Type                                     | Description                                                                     |
+| --------------------------- | ------------------------ | --------------------------------------------- | ------------------------------------------------------------------------------- |
+| employee_id                 | required                 | uuid (v4)                                     | The unique identifier for the employee                                          |
+| time_worked                 | required                 | array of `Time Worked` entries                | An array that contains at least one `Time Worked` entry                         |
+| reset                       | optional | boolean (default: true)                                       | When set to true will destroy all previous time worked entries on open payrolls |
+| inferred_additional_incomes | optional                 | array of `Inferred Additional Income` entries | An array that contains zero or more `Inferred Additional Income` entries        |
 
 **Time Worked**
 
