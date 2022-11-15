@@ -65,12 +65,19 @@ the request will be rejected. The `hours` attribute must be `0`
 An `Inferred Additional Income` is provided for statutory holidays in which the hourly employee was provided a set wage. Inferred Additional Incomes
 will be applied to the employees primary rate that was active on the date of the statutory holiday.
 
-| Name       | Type     | Data Type              | Description                                                                                            |
-| ---------- | -------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| id         | required | uuid  (v4)             | UUID of the [CompanyAdditionalIncome](../../payroll/additional_incomes/get.md) (usually `holiday_pay`) |
-| start_time | required | datetime               | The start of the day for the statutory holiday (i.e. `2021-12-25 00:00:00 -05:00`                      |
-| end_time   | required | datetime               | The end of the day for the statutory holiday (i.e. `2021-12-25 23:59:59 -05:00`)                       |
-| amount     | required | money formatted string | The amount of money to be paid to the employee employee as compensation for the statutory holiday      |
+Hours do not need to be provided and when they aren't they will be estimated based on the amount that was provided. Using the amount and the active primary
+rate for the date, the hours will be inferred.
+
+Example: If an employee made 300.00 of stat pay on the 25th of December, 2021 and their active primary rate at that time was $40.00 per hour. The number of hours
+that would be calculated would be 7.5.
+
+| Name       | Type     | Data Type                | Description                                                                                                                |
+| ---------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| id         | required | uuid  (v4)               | UUID of the [CompanyAdditionalIncome](../../payroll/additional_incomes/get.md) (usually `holiday_pay`)                     |
+| start_time | required | datetime                 | The start of the day for the statutory holiday (i.e. `2021-12-25 00:00:00 -05:00`                                          |
+| end_time   | required | datetime                 | The end of the day for the statutory holiday (i.e. `2021-12-25 23:59:59 -05:00`)                                           |
+| amount     | required | money formatted string   | The amount of money to be paid to the employee employee as compensation for the statutory holiday                          |
+| hours      | optional | decimal formatted string | The number of hours to count for this inferred income. If this is absent it will be estimated based on the provided amount |
 
 ### Example Request
 
