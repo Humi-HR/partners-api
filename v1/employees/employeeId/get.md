@@ -50,6 +50,7 @@ Humi allows users to delete employees. **Deleted employees will not appear in th
 | department       | string or null | name of department (not required)                                                                |
 | position         | string or null | name of position (not required)                                                                  |
 | office           | string or null | address of office (not required)                                                                 |
+| reports_to_id    | string or null | a unique identifier of another employee that this employee reports to                            |
 | employment_type  | string         | one of: full-time, seasonal, part-time, contractor, intern, consultant, other, volunteer, casual |
 | start_date       | date           | start of employment                                                                              |
 | end_date         | date or null   | end of employment                                                                                |
