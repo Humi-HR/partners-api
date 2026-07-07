@@ -9,19 +9,21 @@ Get the details of all employees of a company.
 **Auth required** : YES, include your token in the `Authorization` header. Ex: `Authorization: Bearer your-token-here`
 
 ## Requests
+
 Requests must follow the [JSON:API](https://jsonapi.org/) spec.
 
 ### Request Query Parameters
 
-| Name         | Type     | Data Type | Default | Description                                                         |
-|--------------|----------|-----------|---------|---------------------------------------------------------------------|
-| page[size]   | optional | int       | 25      | Requested Page size. There is a **maximum of 25** results per page. |
-| page[number] | optional | int       | 1       | Requested Page number.                                              |
-| include      | optional | String    |         | Additional relationships to include
+| Name         | Type     | Data Type | Default | Description                                                                                         |
+| ------------ | -------- | --------- | ------- | --------------------------------------------------------------------------------------------------- |
+| page[size]   | optional | int       | 25      | Requested Page size. There is a **maximum of 25** results per page.                                 |
+| page[number] | optional | int       | 1       | Requested Page number.                                                                              |
+| include      | optional | String    |         | Comma-separated list of relationships to include. Supported values: `salaries`, `custom_attributes` |
 
 ### Example Request
 
 #### curl
+
 ```
 curl -G \
      -H "Authorization: Bearer valid-token-here" \
@@ -30,16 +32,18 @@ curl -G \
      https://partners.humi.ca/v1/employees
 ```
 
-
 ## Responses
+
 Responses follow the [JSON:API](https://jsonapi.org/) spec.
 
 Responses are ordered by the `created_at` field, ascending. (ie. 1, 2, 3...)
 
 #### Data
+
 The `data` attribute is an `array` of `Employee` objects.
 
 #### Employee
+
 An `Employee` has an `id` which is a unique identifier.
 
 An `Employee` has `attributes` which contain the information about the employee.
@@ -50,8 +54,9 @@ an `id` and `type`.
 Humi allows users to delete employees. **Deleted employees will not appear in the results.**
 
 #### Employee Attributes
+
 | Attribute        | Data Type      | Description                                                                                      |
-|------------------|----------------|--------------------------------------------------------------------------------------------------|
+| ---------------- | -------------- | ------------------------------------------------------------------------------------------------ |
 | id               | uuid (v4)      | a unique identifier for this employee                                                            |
 | first_name       | string         | name the employee goes by                                                                        |
 | last_name        | string         | name the employee goes by                                                                        |
@@ -70,6 +75,7 @@ Humi allows users to delete employees. **Deleted employees will not appear in th
 | updated_at       | datetime       | last time employee or employee's position, department, office was updated                        |
 
 #### Meta
+
 The `meta` attribute contains information about the response itself, including pagination data. Responses are **paginated**,
 so you may need to make several requests to get the full list. Pages have a maximum value of 25.
 
@@ -79,15 +85,17 @@ The `included` attribute contains records that are related to the `Employee`. Th
 The value for this query parameter is a comma-separated list, which may contain any combination of the following:
 
 - `salaries`: To include a list of salary details for each employee.
+- `custom_attributes`: To include a list of company-defined custom field values for each employee.
 
 #### Salaries
 
 If salaries are included, each salary record will be on the `relationships` section for an `Employee` record. Information for about the
 `Salary` record can be found by filtering through the `included` section of the response.
+
 #### Salary Attributes
 
 | Attribute    | Data Type        | Description                                              |
-|--------------|------------------|----------------------------------------------------------|
+| ------------ | ---------------- | -------------------------------------------------------- |
 | id           | uuid (v4)        | a unique identifier for this employee                    |
 | name         | string           | human-readable name used to identify this salary         |
 | rate         | int              | rate, in dollars, of this salary item                    |
@@ -97,6 +105,22 @@ If salaries are included, each salary record will be on the `relationships` sect
 | ends_at      | datetime or null | end date of the salary                                   |
 | created_at   | datetime         | creation of the salary entity                            |
 | updated_at   | datetime         | last time the salary was updated                         |
+
+#### Custom Attributes
+
+If custom attributes are included, each custom attribute record will be on the `relationships` section for an `Employee` record. Information about the `CustomAttribute` record can be found by filtering through the `included` section of the response.
+
+Only employees with at least one non-empty custom attribute value will have a `relationships.custom_attributes` entry. Encrypted fields are automatically decrypted before being returned.
+
+#### Custom Attribute Attributes
+
+| Attribute   | Data Type      | Description                                                                                           |
+| ----------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| id          | int            | a unique identifier for this custom attribute value                                                   |
+| name        | string         | the name of the custom field (e.g. "Employee Number")                                                 |
+| value       | string or null | the value of the custom field                                                                         |
+| type        | string         | field type: `short-text`, `long-text`, `date`, `boolean`, `number`, `dropdown`                        |
+| field_group | object or null | the group this field belongs to, with `id` (int) and `name` (string); `null` if the group was deleted |
 
 ### Success Response
 
@@ -361,4 +385,4 @@ Given a request to `partners.humi.ca/v1/employees` with a [valid token](../../RE
 
 ## Notes
 
-* Responses are ordered by the `created_at` field, ascending. (ie. 1, 2, 3...)
+- Responses are ordered by the `created_at` field, ascending. (ie. 1, 2, 3...)
