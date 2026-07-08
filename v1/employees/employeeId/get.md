@@ -9,27 +9,35 @@ Get details of a specific employee of a company.
 **Auth required** : YES, include your token in the `Authorization` header. Ex: `Authorization: Bearer your-token-here`
 
 ## Requests
+
 Requests must follow the [JSON:API](https://jsonapi.org/) spec.
 
 ### Request Query Parameters
-N/A
+
+| Name    | Type     | Data Type | Default | Description                                                                                         |
+| ------- | -------- | --------- | ------- | --------------------------------------------------------------------------------------------------- |
+| include | optional | String    |         | Comma-separated list of relationships to include. Supported values: `salaries`, `custom_attributes` |
 
 ### Example Request
 
 #### curl
+
 ```
 curl -H "Authorization: Bearer valid-token-here" https://partners.humi.ca/v1/employees/valid-employee-id-here
+
+curl -H "Authorization: Bearer valid-token-here" "https://partners.humi.ca/v1/employees/valid-employee-id-here?include=custom_attributes"
 ```
 
-
 ## Responses
+
 Responses follow the [JSON:API](https://jsonapi.org/) spec.
 
-
 #### Data
+
 The `data` attribute is an `array` of `Employee` objects.
 
 #### Employee
+
 An `Employee` has an `id` which is a unique identifier.
 
 An `Employee` has `attributes` which contain the information about the employee.
@@ -37,8 +45,9 @@ An `Employee` has `attributes` which contain the information about the employee.
 Humi allows users to delete employees. **Deleted employees will not appear in the results.**
 
 #### Employee Attributes
+
 | Attribute        | Data Type      | Description                                                                                      |
-|------------------|----------------|--------------------------------------------------------------------------------------------------|
+| ---------------- | -------------- | ------------------------------------------------------------------------------------------------ |
 | id               | uuid (v4)      | a unique identifier for this employee                                                            |
 | first_name       | string         | name the employee goes by                                                                        |
 | last_name        | string         | name the employee goes by                                                                        |
@@ -56,6 +65,23 @@ Humi allows users to delete employees. **Deleted employees will not appear in th
 | end_date         | date or null   | end of employment                                                                                |
 | created_at       | datetime       | creation of employee entity                                                                      |
 | updated_at       | datetime       | last time employee or employee's position, department, office was updated                        |
+
+### Included
+
+The `included` attribute contains records related to the `Employee`, available when the `include` query parameter is set.
+
+- `salaries`: salary details for this employee.
+- `custom_attributes`: company-defined custom field values for this employee.
+
+#### Custom Attribute Attributes
+
+| Attribute   | Data Type      | Description                                                                                           |
+| ----------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| id          | int            | a unique identifier for this custom attribute value                                                   |
+| name        | string         | the name of the custom field (e.g. "Employee Number")                                                 |
+| value       | string or null | the value of the custom field                                                                         |
+| type        | string         | field type: `short-text`, `long-text`, `date`, `boolean`, `number`, `dropdown`                        |
+| field_group | object or null | the group this field belongs to, with `id` (int) and `name` (string); `null` if the group was deleted |
 
 ### Success Response
 
